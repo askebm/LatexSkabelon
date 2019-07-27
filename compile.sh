@@ -19,7 +19,7 @@ make_path () { # $1 is dir $2 is level
 		fi
 	fi
 	filePath="${1}/.path.tex"
-	echo "% in dir ${1}" > ${filePath}
+	echo "% in dir ${1}" >| ${filePath}
 	echo "${preStr}{${curPath}}" >> ${filePath}
 	for u in "${1}/"*
 	do
@@ -79,14 +79,14 @@ while true; do
 	esac
 done
 
-if [ p = y ]
-then
+if [ $p = y ]
+	then
 	make_path "." 0
 fi
 pdflatex -shell-escape Main.tex
-if [ ! f = y ]
-then
-	bibtex Main
-	pdflatex -shell-escape Main.tex
-	pdflatex -shell-escape Main.tex
+if [ $f = n ]
+	then
+		bibtex Main
+		pdflatex -shell-escape Main.tex
+		pdflatex -shell-escape Main.tex
 fi
