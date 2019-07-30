@@ -16,7 +16,14 @@ Ved anvendelse af Bibtex compile i følgende rækkefølge: pdflatex, bibtax, pdf
 
 Ved anvendelse af inkscape huske flag -shell-escape
 
-## Billeder i rapporten
+## compile.sh
+Compiles the report with everything as default, has 2 arguments.
+
+`-f|--fast` skips steps in compiling to reduce compile time.
+
+`-p|--path` will create `.path.tex` files in each directory.
+
+## Images
 
 Anvend enten [inkscape](https://inkscape.org/), hvor svg filer herfra kan inkluderes med
  `\includesvg[images/]{image}` trailing `/` er vigtigt!
@@ -36,4 +43,4 @@ Undgå at anvende PNG, JPG og JPEG, da vektorgrafik(svg,pdf) fortrækkes og ser 
 Lad være med at bruge EPS filer herfra, da de ikke har samme font. Anvend da istedet 
 [Plot2Latex](https://se.mathworks.com/matlabcentral/fileexchange/52700-plot2latex)
 
-
+hej
