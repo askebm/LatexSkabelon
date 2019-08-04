@@ -40,8 +40,8 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=fp
-LONGOPTS=fast,path
+OPTIONS=fph
+LONGOPTS=fast,path,help
 
 # -regarding ! and PIPESTATUS see above
 # -temporarily store output to be able to check for errors
@@ -58,6 +58,7 @@ eval set -- "$PARSED"
 
 f=n
 p=n
+h=n
 while true; do
 	case "$1" in
 		-f|--fast)
@@ -66,6 +67,10 @@ while true; do
 			;;
 		-p|--path)
 			p=y
+			shift
+			;;
+		-h|--help)
+			h=y
 			shift
 			;;
 		--)
@@ -79,14 +84,23 @@ while true; do
 	esac
 done
 
-if [ $p = y ]
-	then
-	make_path "." 0
-fi
-pdflatex -shell-escape Main.tex
-if [ $f = n ]
-	then
-		bibtex Main
-		pdflatex -shell-escape Main.tex
-		pdflatex -shell-escape Main.tex
+if [ $h = n ]; then
+	if [ $p = y ]
+		then
+		make_path "." 0
+	fi
+	pdflatex -shell-escape Main.tex
+	if [ $f = n ]
+		then
+			bibtex Main
+			pdflatex -shell-escape Main.tex
+			pdflatex -shell-escape Main.tex
+	fi
+else
+	echo -e \
+"List of commands:\n\
+-f\t--fast\tDoes not run full compile run, usefull if only checking layout\n\
+-p\t--path\tWill create '.path.tex' files in every subdirectory\n\
+-h\t--help\tThis help"
+
 fi
